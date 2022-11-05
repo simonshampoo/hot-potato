@@ -1,9 +1,17 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
+import {Martyr} from "./Martyr.sol"
+
 contract HotPotato {
 
     event Deployed(address to, uint256 amount); 
+
+    function getCreationBytecode(address _owner, uint _foo) public pure returns (bytes memory) {
+        bytes memory bytecode = type(Wallet).creationCode;
+
+        return abi.encodePacked(bytecode, abi.encode(_owner, _foo));
+    }
 
     function heatPotato(address payable to) payable external returns (address martyr) {
         address martyr; 
