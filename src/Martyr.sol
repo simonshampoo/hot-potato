@@ -13,10 +13,8 @@ contract Martyr {
 
          
     */
-    
-   constructor(address payable _to) payable {
+
+    constructor(address payable _to) payable {
         selfdestruct(_to);
-   }
-
+    }
 }
-
