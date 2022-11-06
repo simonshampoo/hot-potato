@@ -21,9 +21,9 @@ contract HotPotatoTest is Test {
 
         console.log("Receiver balance before: %s", receiver.balance);
         console.log("Sender balance before: %s", sender.balance);
-        address(hotPotato).call{ value: sender.balance }(
-            abi.encodeWithSignature("heatPotato(address)", payable(receiver))
-        );
+        (bool success, ) = address(hotPotato).call{
+            value: sender.balance
+        }(abi.encodeWithSignature("heatPotato(address)", payable(receiver)));
         vm.stopPrank();
 
         console.log("Receiver balance after: %s", receiver.balance);
@@ -31,5 +31,6 @@ contract HotPotatoTest is Test {
 
         assertTrue(receiver.balance == 1 ether);
         assertTrue(sender.balance == 0 ether);
+        assertTrue(success);
     }
 }
