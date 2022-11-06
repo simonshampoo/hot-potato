@@ -4,7 +4,6 @@ pragma solidity ^0.8.13;
 import "forge-std/Vm.sol";
 import "forge-std/Test.sol";
 import "../src/HotPotato.sol";
-import "forge-std/Vm.sol";
 
 contract HotPotatoTest is Test {
     HotPotato hotPotato;
@@ -20,8 +19,14 @@ contract HotPotatoTest is Test {
 
         vm.deal(sender, 1 ether);
 
-        hotPotato.heatPotato(payable(receiver));
+        console.log("Receiver balance before: %s", receiver.balance);
+        console.log("Sender balance before: %s", sender.balance);
+        address(hotPotato).call{ value: sender.balance }(abi.encodeWithSignature(""));
         vm.stopPrank();
+
+        console.log("Receiver balance after: %s", receiver.balance);
+        console.log("Sender balance after: %s", sender.balance);
+
         assertTrue(receiver.balance == 1 ether);
         assertTrue(sender.balance == 0 ether);
     }

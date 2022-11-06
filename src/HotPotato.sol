@@ -10,7 +10,7 @@ contract HotPotato {
     function getCreationBytecode(address to) public pure returns (bytes memory) {
         bytes memory bytecode = type(Martyr).creationCode;
 
-        return abi.encodePacked(bytecode,to);  
+        return abi.encodePacked(bytecode, abi.encode(to));  
     }
 
     function heatPotato(address payable to) payable external returns (address martyr) {
@@ -18,7 +18,7 @@ contract HotPotato {
 
         assembly {
             let amtToSend := callvalue()
-            martyr := create(amtToSend, code, 388) 
+            martyr := create(amtToSend, code, 63) 
     
         }        
         emit Deployed(martyr, msg.value);
