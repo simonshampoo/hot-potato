@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import {Martyr} from "./Martyr.sol"
+import {Martyr} from "./Martyr.sol";
 
 contract HotPotato {
 
@@ -14,16 +14,14 @@ contract HotPotato {
     }
 
     function heatPotato(address payable to) payable external returns (address martyr) {
-        address martyr; 
+        bytes memory  code = getCreationBytecode(to); 
+
         assembly {
-
             let amtToSend := callvalue()
-            let code := getCreationBytecode(to) 
-
             martyr := create(amtToSend, code, 388) 
     
         }        
-        emit Deployed(martyr, msg.value)
+        emit Deployed(martyr, msg.value);
     }
 
-
+}
