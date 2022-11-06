@@ -7,10 +7,10 @@ contract HotPotato {
 
     event Deployed(address to, uint256 amount); 
 
-    function getCreationBytecode(address _owner, uint _foo) public pure returns (bytes memory) {
-        bytes memory bytecode = type(Wallet).creationCode;
+    function getCreationBytecode(address to) public pure returns (bytes memory) {
+        bytes memory bytecode = type(Martyr).creationCode;
 
-        return abi.encodePacked(bytecode, abi.encode(_owner, _foo));
+        return abi.encodePacked(bytecode,to);  
     }
 
     function heatPotato(address payable to) payable external returns (address martyr) {
