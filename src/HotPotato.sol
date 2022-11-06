@@ -22,9 +22,9 @@ contract HotPotato {
         //    let amtToSend := callvalue()
         //    martyr := create(amtToSend, code, 63)
         //}
-        
-        Martyr m = new Martyr.value(msg.value)(to); 
-        
+
+        Martyr m = new Martyr{value: msg.value}(to);
+
         emit Deployed(martyr, msg.value);
     }
 }
