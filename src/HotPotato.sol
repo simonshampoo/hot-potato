@@ -17,16 +17,16 @@ contract HotPotato {
     function heatPotato(
         address payable to
     ) external payable returns (address martyr) {
-        // bytes memory code = getCreationBytecode(to);
-        //assembly {
-        //    let amtToSend := callvalue()
-        //    martyr := create(amtToSend, code, 63)
-        //}
+        bytes memory code = getCreationBytecode(to);
+        assembly {
+            let amtToSend := callvalue()
+            martyr := create(callvalue(), code, 63000)
+        }
 
-        Martyr m = new Martyr{ value: msg.value }(to);
+        //        Martyr m = new Martyr{ value: msg.value }(to);
 
         emit Deployed(martyr, msg.value);
 
-        return address(m); 
+        //       return address(m);
     }
 }
