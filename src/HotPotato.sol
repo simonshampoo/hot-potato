@@ -17,7 +17,7 @@ contract HotPotato {
     function heatPotato(
         address payable to
     ) external payable returns (address martyr) {
-        bytes memory code = getCreationBytecode(to);
+        bytes memory code = getCreationBytecode(to); // check this out vs solc
         assembly {
             let amtToSend := callvalue()
             martyr := create(callvalue(), code, 63000)
